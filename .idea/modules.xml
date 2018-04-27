@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dao-generator/dao-generator.iml" filepath="$PROJECT_DIR$/dao-generator/dao-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/pilipili.iml" filepath="$PROJECT_DIR$/pilipili.iml" />
     </modules>
   </component>

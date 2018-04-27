@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">pilipili</string>
+    <string name="preview_text">preview_text</string>
+    <string name="login_toolbar_title">登录</string>
+    <string name="login_account_hint">你的账号</string>
+    <string name="login_password_hint">请输入密码</string>
+    <string name="login_registered_btn_txt">注册账号</string>
+    <string name="login_login_btn_txt">登录</string>
+    <string name="registered_toolbar_title">注册</string>
+    <string name="registered_account_hint">账号</string>
+    <string name="registered_username_hint">用户名</string>
+    <string name="registered_password_hint">密码</string>
+    <string name="registered_confirm_password_hint">确认密码</string>
+    <string name="registered_registered_btn_txt">注册</string>
 </resources>
