@@ -1,150 +1,106 @@
 package com.suidadabian.lixiaofeng.pilipili.model;
 
-import android.support.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.ToMany;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.util.Date;
-import java.util.List;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
 
-@Entity
-public class Comment {
-    @Id(autoincrement = true)
+public class Comment implements Parcelable {
     private long id;
-    @NonNull
     private long userId;
-    @NonNull
     private long infoPictureId;
-    @NonNull
     private String comment;
-    @NonNull
+    @JsonAdapter(DateConverter.class)
     private Date date;
-    @NonNull
-    private int index;
-    @ToMany(referencedJoinProperty = "commentId")
-    private List<Reply> replies;
-    /** Used to resolve relations */
-    @Generated(hash = 2040040024)
-    private transient DaoSession daoSession;
-    /** Used for active entity operations. */
-    @Generated(hash = 1903578761)
-    private transient CommentDao myDao;
-    @Generated(hash = 683239547)
-    public Comment(long id, long userId, long infoPictureId,
-            @NonNull String comment, @NonNull Date date, int index) {
-        this.id = id;
-        this.userId = userId;
-        this.infoPictureId = infoPictureId;
-        this.comment = comment;
-        this.date = date;
-        this.index = index;
-    }
-    @Generated(hash = 1669165771)
-    public Comment() {
-    }
+    private int replyNum;
+
     public long getId() {
-        return this.id;
+        return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public long getUserId() {
-        return this.userId;
+        return userId;
     }
+
     public void setUserId(long userId) {
         this.userId = userId;
     }
+
     public long getInfoPictureId() {
-        return this.infoPictureId;
+        return infoPictureId;
     }
+
     public void setInfoPictureId(long infoPictureId) {
         this.infoPictureId = infoPictureId;
     }
+
     public String getComment() {
-        return this.comment;
+        return comment;
     }
+
     public void setComment(String comment) {
         this.comment = comment;
     }
+
     public Date getDate() {
-        return this.date;
+        return date;
     }
+
     public void setDate(Date date) {
         this.date = date;
     }
-    public int getIndex() {
-        return this.index;
+
+    public int getReplyNum() {
+        return replyNum;
     }
-    public void setIndex(int index) {
-        this.index = index;
+
+    public void setReplyNum(int replyNum) {
+        this.replyNum = replyNum;
     }
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 55553826)
-    public List<Reply> getReplies() {
-        if (replies == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            ReplyDao targetDao = daoSession.getReplyDao();
-            List<Reply> repliesNew = targetDao._queryComment_Replies(id);
-            synchronized (this) {
-                if (replies == null) {
-                    replies = repliesNew;
-                }
-            }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeLong(this.userId);
+        dest.writeLong(this.infoPictureId);
+        dest.writeString(this.comment);
+        dest.writeLong(this.date != null ? this.date.getTime() : -1);
+        dest.writeInt(this.replyNum);
+    }
+
+    public Comment() {
+    }
+
+    protected Comment(Parcel in) {
+        this.id = in.readLong();
+        this.userId = in.readLong();
+        this.infoPictureId = in.readLong();
+        this.comment = in.readString();
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
+        this.replyNum = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel source) {
+            return new Comment(source);
         }
-        return replies;
-    }
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 2101789245)
-    public synchronized void resetReplies() {
-        replies = null;
-    }
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 128553479)
-    public void delete() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
+
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
         }
-        myDao.delete(this);
-    }
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 1942392019)
-    public void refresh() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.refresh(this);
-    }
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 713229351)
-    public void update() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.update(this);
-    }
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2038262053)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getCommentDao() : null;
-    }
+    };
 }

@@ -1,101 +1,102 @@
 package com.suidadabian.lixiaofeng.pilipili.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.suidadabian.lixiaofeng.pilipili.GlideApp;
 import com.suidadabian.lixiaofeng.pilipili.R;
+import com.suidadabian.lixiaofeng.pilipili.RefreshLoadFragment;
 import com.suidadabian.lixiaofeng.pilipili.model.LightPicture;
+import com.suidadabian.lixiaofeng.pilipili.net.PiliPiliServer;
+import com.suidadabian.lixiaofeng.pilipili.watch.PictureWatchActivity;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
-public class LightPicturesFragment extends PicturesFragment {
+import io.reactivex.Observable;
+
+public class LightPicturesFragment extends RefreshLoadFragment<LightPicture> {
+    private static final int START_PAGE_NO = 1;
+    private static final int PAGE_SIZE = 10;
+    private RecyclerView mRecyclerView;
     private LightPicturesAdapter mLightPicturesAdapter;
+    private int mCurrentPageNo;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        mLightPicturesAdapter = new LightPicturesAdapter(this);
-        mLightPicturesAdapter.setOnItemClickListener(lightPicture -> {
-            // TODO: 2018/4/25 更换逻辑
-        });
-        mRecyclerView.setAdapter(mLightPicturesAdapter);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+        View view = inflater.inflate(R.layout.fragment_light_pictures, container, false);
+        initView(view);
         return view;
     }
 
-    public static class LightPicturesAdapter extends RecyclerView.Adapter<LightPictureViewHolder> {
-        private WeakReference<Fragment> mFragmentWeakRef;
-        private List<LightPicture> mLightPictures;
-        private OnItemClickListener mOnItemClickListener;
+    private void initView(View view) {
+        mRecyclerView = view.findViewById(R.id.light_pictures_rv);
 
-        public LightPicturesAdapter(Fragment fragment) {
-            mFragmentWeakRef = new WeakReference<>(fragment);
-            mLightPictures = new ArrayList<>();
-        }
-
-        @Override
-        public LightPictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LightPictureViewHolder holder = new LightPictureViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_light_picture, parent, false));
-            holder.itemView.setOnClickListener(v -> {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(mLightPictures.get(holder.getAdapterPosition()));
-                }
-            });
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(LightPictureViewHolder holder, int position) {
-            Fragment fragment = mFragmentWeakRef.get();
-            LightPicture lightPicture = mLightPictures.get(position);
-
-            if (fragment == null || lightPicture == null) {
-                return;
-            }
-
-            GlideApp.with(fragment)
-                    .load(lightPicture.getUrl())
-                    // TODO: 2018/4/25 更换图片
-                    .placeholder(R.drawable.icon_preview)
-                    .error(R.drawable.icon_preview)
-                    .into(holder.pictureIv);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mLightPictures == null ? 0 : mLightPictures.size();
-        }
-
-        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-            mOnItemClickListener = onItemClickListener;
-        }
+        mLightPicturesAdapter = new LightPicturesAdapter(this);
+        mLightPicturesAdapter.setOnItemClickListener(lightPicture -> {
+            Intent intent = new Intent(getActivity(), PictureWatchActivity.class);
+            intent.putExtra(PictureWatchActivity.KEY_PICTURE_URL, lightPicture.getUrl());
+            intent.putExtra(PictureWatchActivity.KEY_FLAG_DOWNLOAD_ENABLE, true);
+            startActivity(intent);
+        });
+        mRecyclerView.setAdapter(mLightPicturesAdapter);
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
     }
 
-    private static class LightPictureViewHolder extends RecyclerView.ViewHolder {
-        ImageView pictureIv;
-
-        public LightPictureViewHolder(View itemView) {
-            super(itemView);
-
-            pictureIv = (ImageView) itemView;
-        }
+    @Override
+    protected int getRefreshLayoutId() {
+        return R.id.light_pictures_refresh_layout;
     }
 
-    private interface OnItemClickListener {
-        void onItemClick(LightPicture lightPicture);
+    @Override
+    protected void onRefreshStart() {
+    }
+
+    @Override
+    protected void onLoadMoreStart() {
+    }
+
+    @Override
+    protected Observable<List<LightPicture>> onRefresh() {
+        return PiliPiliServer.getInstance().getLightPictures(START_PAGE_NO, PAGE_SIZE);
+    }
+
+    @Override
+    protected Observable<List<LightPicture>> onLoadMore() {
+        return PiliPiliServer.getInstance().getLightPictures(mCurrentPageNo + 1, PAGE_SIZE);
+    }
+
+    @Override
+    protected void onRefreshFinish(List<LightPicture> data) {
+        mCurrentPageNo = START_PAGE_NO;
+        mLightPicturesAdapter.notifyItemRangeRemoved(0, mLightPicturesAdapter.getItemCount());
+        mLightPicturesAdapter.refresh(data);
+        mLightPicturesAdapter.notifyItemRangeInserted(0, data.size());
+    }
+
+    @Override
+    protected boolean onLoadMoreFinish(List<LightPicture> data) {
+        if (data.isEmpty()) {
+            return true;
+        }
+
+        mCurrentPageNo++;
+        mLightPicturesAdapter.notifyItemRangeInserted(mLightPicturesAdapter.getItemCount(), data.size());
+        mLightPicturesAdapter.insertLightPicture(data);
+        return data.size() < PAGE_SIZE;
+    }
+
+    @Override
+    protected void onRefreshFail(Throwable throwable) {
+    }
+
+    @Override
+    protected void onLoadMoreFail(Throwable throwable) {
     }
 }

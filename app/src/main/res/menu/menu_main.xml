@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_main_setting"
+        android:icon="@drawable/icon_setting"
+        android:title="设置"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/item_main_download"
+        android:icon="@drawable/icon_download"
+        android:title="下载"
+        app:iconTint="@color/white"
+        app:showAsAction="always"/>
+</menu>

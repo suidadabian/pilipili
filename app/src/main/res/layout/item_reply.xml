@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/reply_avatar_civ"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_margin="@dimen/dimen_16dp"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/dimen_2dp"
+        app:civ_circle_background_color="@color/white"/>
+
+    <TextView
+        android:id="@+id/reply_username_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/reply_avatar_civ"
+        android:layout_toEndOf="@id/reply_avatar_civ"
+        android:textSize="@dimen/dimen_14sp"/>
+
+    <TextView
+        android:id="@+id/reply_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/reply_avatar_civ"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:textSize="@dimen/dimen_12sp"/>
+
+    <TextView
+        android:id="@+id/reply_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reply_username_tv"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_toEndOf="@id/reply_avatar_civ"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_14sp"/>
+
+    <View
+        android:id="@+id/reply_border"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/border_height_line_1px"
+        android:layout_below="@id/reply_tv"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:background="@color/border_gray"/>
+
+</RelativeLayout>

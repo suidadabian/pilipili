@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/upload_info_picture_toolbar"
+        layout="@layout/include_toolbar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_16dp"
+            android:paddingTop="@dimen/dimen_16dp">
+
+            <include layout="@layout/include_upload_picture"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/border_height_line_1px"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@color/border_gray"/>
+
+            <LinearLayout
+                android:id="@+id/upload_info_picture_title_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="标题"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_14sp"/>
+
+                <TextView
+                    android:id="@+id/upload_info_picture_title_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:gravity="end"
+                    android:hint="点击编辑"
+                    android:textSize="@dimen/dimen_14sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/border_height_line_1px"
+                android:background="@color/border_gray"/>
+
+            <LinearLayout
+                android:id="@+id/upload_info_picture_intro_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="简介"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_14sp"/>
+
+                <TextView
+                    android:id="@+id/upload_info_picture_intro_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:gravity="end"
+                    android:hint="点击编辑"
+                    android:textSize="@dimen/dimen_14sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/border_height_line_1px"
+                android:background="@color/border_gray"/>
+
+            <LinearLayout
+                android:id="@+id/upload_info_picture_share_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end"
+                    android:text="是否分享"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_14sp"/>
+
+                <CheckBox
+                    android:id="@+id/upload_info_picture_share_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:clickable="false"
+                    android:layoutDirection="rtl"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/border_height_line_1px"
+                android:background="@color/border_gray"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

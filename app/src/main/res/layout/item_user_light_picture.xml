@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/user_light_picture_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_transparent_black"
+        android:paddingHorizontal="@dimen/dimen_8dp"
+        android:paddingVertical="@dimen/dimen_8dp">
+
+        <TextView
+            android:id="@+id/user_light_picture_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_12sp"/>
+
+        <TextView
+            android:id="@+id/user_light_picture_share_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_toEndOf="@id/user_light_picture_date_tv"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_12sp"/>
+
+        <ImageButton
+            android:id="@+id/user_light_picture_delete_ibtn"
+            android:layout_width="@dimen/dimen_24dp"
+            android:layout_height="@dimen/dimen_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@drawable/icon_delete"
+            android:tint="@color/selector_user_light_picture_delete_icon_color"/>
+    </RelativeLayout>
+</RelativeLayout>

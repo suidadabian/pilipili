@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginVertical="@dimen/dimen_16dp"
+        android:orientation="horizontal">
+
+        <com.suidadabian.lixiaofeng.pilipili.common.view.RectangleImageView
+            android:id="@+id/recommend_picture_riv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/dimen_0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/recommend_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16sp"/>
+
+            <ImageView
+                android:id="@+id/recommend_user_tag"
+                android:layout_width="@dimen/dimen_16dp"
+                android:layout_height="@dimen/dimen_16dp"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_login_account"/>
+
+            <TextView
+                android:id="@+id/recommend_username_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_toEndOf="@id/recommend_user_tag"
+                android:text="123"
+                android:textSize="@dimen/dimen_12sp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/border_height_line_1px"
+        android:background="@color/border_gray"/>
+</LinearLayout>

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_height_48dp">48dp</dimen>
-    <dimen name="main_tab_height_56dp">56dp</dimen>
+    <dimen name="main_tab_height_36dp">36dp</dimen>
+    <dimen name="info_picture_tab_height_36dp">36dp</dimen>
+    <dimen name="user_tab_height_36dp">36dp</dimen>
+    <dimen name="border_height_line_1px">1px</dimen>
+    <dimen name="tag_corner_radius_16dp">16dp</dimen>
+    <dimen name="dimen_0dp">0dp</dimen>
     <dimen name="dimen_1dp">1dp</dimen>
     <dimen name="dimen_2dp">2dp</dimen>
     <dimen name="dimen_4dp">4dp</dimen>
@@ -13,8 +18,16 @@
     <dimen name="dimen_48dp">48dp</dimen>
     <dimen name="dimen_56dp">56dp</dimen>
     <dimen name="dimen_64dp">64dp</dimen>
+    <dimen name="dimen_72dp">72dp</dimen>
+    <dimen name="dimen_80dp">80dp</dimen>
+    <dimen name="dimen_88dp">88dp</dimen>
+    <dimen name="dimen_96dp">96dp</dimen>
+    <dimen name="dimen_104dp">104dp</dimen>
+    <dimen name="dimen_112dp">112dp</dimen>
+    <dimen name="dimen_120dp">120dp</dimen>
     <dimen name="dimen_12sp">12sp</dimen>
     <dimen name="dimen_14sp">14sp</dimen>
     <dimen name="dimen_16sp">16sp</dimen>
     <dimen name="dimen_18sp">18sp</dimen>
+    <dimen name="dimen_20sp">20sp</dimen>
 </resources>

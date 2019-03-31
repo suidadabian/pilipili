@@ -21,6 +21,6 @@ public class RectangleImageView extends AppCompatImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight() / 4 * 3);
+        setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth() / 4 * 3);
     }
 }

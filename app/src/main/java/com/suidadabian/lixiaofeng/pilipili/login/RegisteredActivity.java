@@ -7,10 +7,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.suidadabian.lixiaofeng.pilipili.R;
+import com.suidadabian.lixiaofeng.pilipili.model.User;
+import com.suidadabian.lixiaofeng.pilipili.net.NetExceptionHandler;
+import com.suidadabian.lixiaofeng.pilipili.net.PiliPiliServer;
 import com.suidadabian.lixiaofeng.pilipili.util.CheckUtil;
+
+import java.io.InputStream;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class RegisteredActivity extends Activity {
     private static final String KEY_ACCOUNT = "account";
@@ -27,6 +37,7 @@ public class RegisteredActivity extends Activity {
     private String mUsername;
     private String mPassword;
     private String mConfirmPassword;
+    private MaterialDialog mRegisteredDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +66,7 @@ public class RegisteredActivity extends Activity {
         mConfirmPasswordEt = findViewById(R.id.registered_confirm_password_et);
         mRegisteredBtn = findViewById(R.id.registered_registered_btn);
 
+        mToolbar.setTitle("注册账号");
         mToolbar.setNavigationOnClickListener(v -> {
             finish();
         });
@@ -130,9 +142,35 @@ public class RegisteredActivity extends Activity {
                 mRegisteredBtn.setEnabled(CheckUtil.checkRegisteredData(mAccount, mUsername, mPassword, mConfirmPassword));
             }
         });
-        mRegisteredBtn.setOnClickListener(v -> {
-            // TODO: 2018/4/23 注册逻辑
-        });
+        mRegisteredBtn.setEnabled(CheckUtil.checkRegisteredData(mAccount, mUsername, mPassword, mConfirmPassword));
+        mRegisteredBtn.setOnClickListener(v -> registered());
+    }
+
+    private void registered() {
+        if (mRegisteredDialog == null) {
+            mRegisteredDialog = new MaterialDialog.Builder(this)
+                    .content("注册中……")
+                    .progress(true, 0)
+                    .show();
+        } else {
+            mRegisteredDialog.show();
+        }
+
+        PiliPiliServer.getInstance().registered(mAccount, mUsername, mPassword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> onRegisteredSuccess(user), throwable -> onRegisteredFail(throwable));
+    }
+
+    private void onRegisteredSuccess(User user) {
+        mRegisteredDialog.dismiss();
+        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void onRegisteredFail(Throwable throwable) {
+        mRegisteredDialog.dismiss();
+        new NetExceptionHandler().handleException(this, throwable);
     }
 
     @Override
@@ -142,17 +180,5 @@ public class RegisteredActivity extends Activity {
         outState.putString(KEY_USERNAME, mUsername);
         outState.putString(KEY_PASSWORD, mPassword);
         outState.putString(KEY_CONFIRM_PASSWORD, mConfirmPassword);
-    }
-
-    private void onRegisteredSuccess() {
-        // TODO: 2018/4/23 注册成功逻辑
-    }
-
-    private void onRegisteredFail() {
-        // TODO: 2018/4/23 注册失败逻辑
-    }
-
-    private void onRegisteredError() {
-        // TODO: 2018/4/23 注册错误逻辑
     }
 }

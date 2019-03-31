@@ -1,46 +1,22 @@
 package com.suidadabian.lixiaofeng.pilipili.model;
 
-import android.support.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.util.Date;
 
-import org.greenrobot.greendao.annotation.Generated;
-
-@Entity
-public class Reply {
-    @Id(autoincrement = true)
+public class Reply implements Parcelable {
     private long id;
-    @NonNull
     private long userId;
-    @NonNull
     private long commentId;
-    @NonNull
     private String reply;
-    @NonNull
+    @JsonAdapter(DateConverter.class)
     private Date date;
-    @NonNull
-    private int index;
-
-    @Generated(hash = 439285326)
-    public Reply(long id, long userId, long commentId, @NonNull String reply,
-                 @NonNull Date date, int index) {
-        this.id = id;
-        this.userId = userId;
-        this.commentId = commentId;
-        this.reply = reply;
-        this.date = date;
-        this.index = index;
-    }
-
-    @Generated(hash = 1831839081)
-    public Reply() {
-    }
 
     public long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(long id) {
@@ -48,7 +24,7 @@ public class Reply {
     }
 
     public long getUserId() {
-        return this.userId;
+        return userId;
     }
 
     public void setUserId(long userId) {
@@ -56,7 +32,7 @@ public class Reply {
     }
 
     public long getCommentId() {
-        return this.commentId;
+        return commentId;
     }
 
     public void setCommentId(long commentId) {
@@ -64,7 +40,7 @@ public class Reply {
     }
 
     public String getReply() {
-        return this.reply;
+        return reply;
     }
 
     public void setReply(String reply) {
@@ -72,18 +48,48 @@ public class Reply {
     }
 
     public Date getDate() {
-        return this.date;
+        return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getIndex() {
-        return this.index;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeLong(this.userId);
+        dest.writeLong(this.commentId);
+        dest.writeString(this.reply);
+        dest.writeLong(this.date != null ? this.date.getTime() : -1);
     }
+
+    public Reply() {
+    }
+
+    protected Reply(Parcel in) {
+        this.id = in.readLong();
+        this.userId = in.readLong();
+        this.commentId = in.readLong();
+        this.reply = in.readString();
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
+    }
+
+    public static final Parcelable.Creator<Reply> CREATOR = new Parcelable.Creator<Reply>() {
+        @Override
+        public Reply createFromParcel(Parcel source) {
+            return new Reply(source);
+        }
+
+        @Override
+        public Reply[] newArray(int size) {
+            return new Reply[size];
+        }
+    };
 }

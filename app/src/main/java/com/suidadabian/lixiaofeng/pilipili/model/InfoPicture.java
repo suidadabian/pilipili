@@ -1,57 +1,22 @@
 package com.suidadabian.lixiaofeng.pilipili.model;
 
-import android.support.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
 
-@Entity
-public class InfoPicture implements Picture {
-    @Id(autoincrement = true)
+public class InfoPicture implements Picture, Parcelable {
     private long id;
-    @NonNull
     private long userId;
-    @NonNull
     private String url;
-    @NonNull
+    @JsonAdapter(DateConverter.class)
     private Date date;
-    private String tags;
-    @NonNull
     private boolean share;
-    @NonNull
     private String title;
     private String intro;
-    @NonNull
-    private int thumbsUpNumber;
-    @NonNull
-    private int collectNumber;
-    @NonNull
-    private int commentNumber;
-
-    @Generated(hash = 1910362547)
-    public InfoPicture(long id, long userId, @NonNull String url,
-            @NonNull Date date, String tags, boolean share, @NonNull String title,
-            String intro, int thumbsUpNumber, int collectNumber,
-            int commentNumber) {
-        this.id = id;
-        this.userId = userId;
-        this.url = url;
-        this.date = date;
-        this.tags = tags;
-        this.share = share;
-        this.title = title;
-        this.intro = intro;
-        this.thumbsUpNumber = thumbsUpNumber;
-        this.collectNumber = collectNumber;
-        this.commentNumber = commentNumber;
-    }
-
-    @Generated(hash = 259319555)
-    public InfoPicture() {
-    }
+    private String deletehash;
 
     @Override
     public long getId() {
@@ -94,16 +59,6 @@ public class InfoPicture implements Picture {
     }
 
     @Override
-    public String getTags() {
-        return tags;
-    }
-
-    @Override
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    @Override
     public boolean isShare() {
         return share;
     }
@@ -113,12 +68,8 @@ public class InfoPicture implements Picture {
         this.share = share;
     }
 
-    public boolean getShare() {
-        return this.share;
-    }
-
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(String title) {
@@ -126,34 +77,64 @@ public class InfoPicture implements Picture {
     }
 
     public String getIntro() {
-        return this.intro;
+        return intro;
     }
 
     public void setIntro(String intro) {
         this.intro = intro;
     }
 
-    public int getThumbsUpNumber() {
-        return this.thumbsUpNumber;
+    @Override
+    public String getDeletehash() {
+        return deletehash;
     }
 
-    public void setThumbsUpNumber(int thumbsUpNumber) {
-        this.thumbsUpNumber = thumbsUpNumber;
+    @Override
+    public void setDeletehash(String deletehash) {
+        this.deletehash = deletehash;
     }
 
-    public int getCollectNumber() {
-        return this.collectNumber;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setCollectNumber(int collectNumber) {
-        this.collectNumber = collectNumber;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeLong(this.userId);
+        dest.writeString(this.url);
+        dest.writeLong(this.date != null ? this.date.getTime() : -1);
+        dest.writeByte(this.share ? (byte) 1 : (byte) 0);
+        dest.writeString(this.title);
+        dest.writeString(this.intro);
+        dest.writeString(this.deletehash);
     }
 
-    public int getCommentNumber() {
-        return this.commentNumber;
+    public InfoPicture() {
     }
 
-    public void setCommentNumber(int commentNumber) {
-        this.commentNumber = commentNumber;
+    protected InfoPicture(Parcel in) {
+        this.id = in.readLong();
+        this.userId = in.readLong();
+        this.url = in.readString();
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
+        this.share = in.readByte() != 0;
+        this.title = in.readString();
+        this.intro = in.readString();
+        this.deletehash = in.readString();
     }
+
+    public static final Parcelable.Creator<InfoPicture> CREATOR = new Parcelable.Creator<InfoPicture>() {
+        @Override
+        public InfoPicture createFromParcel(Parcel source) {
+            return new InfoPicture(source);
+        }
+
+        @Override
+        public InfoPicture[] newArray(int size) {
+            return new InfoPicture[size];
+        }
+    };
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/info_picture_root_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/info_picture_input_text_container"
+        layout="@layout/include_input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/info_picture_input_text_container">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/info_picture_app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/colorAccent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseMode="parallax">
+
+                    <com.suidadabian.lixiaofeng.pilipili.common.view.RectangleImageView
+                        android:id="@+id/info_picture_riv"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_0dp"
+                        android:background="@color/black"
+                        android:scaleType="fitCenter"
+                        app:layout_collapseParallaxMultiplier="0.5"/>
+
+                    <ImageButton
+                        android:id="@+id/info_picture_full_screen_ibtn"
+                        android:layout_width="@dimen/dimen_24dp"
+                        android:layout_height="@dimen/dimen_40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/dimen_16dp"
+                        android:background="@null"
+                        android:paddingBottom="@dimen/dimen_16dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_full_screen"
+                        android:tint="@color/selector_info_picture_full_screen_color"/>
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/info_picture_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbar_height_48dp"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/icon_toolbar_back"/>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/info_picture_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/info_picture_tab_height_36dp"
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@color/black"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/info_picture_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

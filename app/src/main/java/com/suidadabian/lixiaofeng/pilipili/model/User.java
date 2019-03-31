@@ -1,68 +1,36 @@
 package com.suidadabian.lixiaofeng.pilipili.model;
 
-import android.support.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Convert;
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.NotNull;
-import org.greenrobot.greendao.annotation.ToMany;
-import org.greenrobot.greendao.converter.PropertyConverter;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 
-import java.util.List;
+import java.io.IOException;
 
-@Entity
-public class User {
-    @Id(autoincrement = true)
+public class User implements Parcelable {
     private long id;
-    @NotNull
     private String account;
-    @NotNull
     private String password;
-    @NonNull
     private String avatarUrl;
-    @NonNull
     private String name;
-    @Convert(columnType = Integer.class, converter = SexConverter.class)
+    @JsonAdapter(SexTypeAdapter.class)
     private Sex sex;
     private String sign;
-    @ToMany(referencedJoinProperty = "userId")
-    private List<InfoPicture> infoPictures;
-    @ToMany(referencedJoinProperty = "userId")
-    private List<Comment> comments;
-    @ToMany(referencedJoinProperty = "userId")
-    private List<Reply> replies;
-    /**
-     * Used to resolve relations
-     */
-    @Generated(hash = 2040040024)
-    private transient DaoSession daoSession;
-    /**
-     * Used for active entity operations.
-     */
-    @Generated(hash = 1507654846)
-    private transient UserDao myDao;
 
-    @Generated(hash = 1155262296)
-    public User(long id, @NotNull String account, @NotNull String password,
-                @NotNull String avatarUrl, @NotNull String name, Sex sex, String sign) {
-        this.id = id;
-        this.account = account;
-        this.password = password;
-        this.avatarUrl = avatarUrl;
-        this.name = name;
-        this.sex = sex;
-        this.sign = sign;
+    public long getId() {
+        return id;
     }
 
-    @Generated(hash = 586692638)
-    public User() {
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getAccount() {
-        return this.account;
+        return account;
     }
 
     public void setAccount(String account) {
@@ -70,15 +38,23 @@ public class User {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -86,7 +62,7 @@ public class User {
     }
 
     public Sex getSex() {
-        return this.sex;
+        return sex;
     }
 
     public void setSex(Sex sex) {
@@ -94,157 +70,11 @@ public class User {
     }
 
     public String getSign() {
-        return this.sign;
+        return sign;
     }
 
     public void setSign(String sign) {
         this.sign = sign;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getAvatarUrl() {
-        return this.avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 1087134892)
-    public List<InfoPicture> getInfoPictures() {
-        if (infoPictures == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            InfoPictureDao targetDao = daoSession.getInfoPictureDao();
-            List<InfoPicture> infoPicturesNew = targetDao
-                    ._queryUser_InfoPictures(id);
-            synchronized (this) {
-                if (infoPictures == null) {
-                    infoPictures = infoPicturesNew;
-                }
-            }
-        }
-        return infoPictures;
-    }
-
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
-    @Generated(hash = 352742211)
-    public synchronized void resetInfoPictures() {
-        infoPictures = null;
-    }
-
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 128553479)
-    public void delete() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.delete(this);
-    }
-
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 1942392019)
-    public void refresh() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.refresh(this);
-    }
-
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 713229351)
-    public void update() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.update(this);
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 948559981)
-    public List<Comment> getComments() {
-        if (comments == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            CommentDao targetDao = daoSession.getCommentDao();
-            List<Comment> commentsNew = targetDao._queryUser_Comments(id);
-            synchronized (this) {
-                if (comments == null) {
-                    comments = commentsNew;
-                }
-            }
-        }
-        return comments;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 249603048)
-    public synchronized void resetComments() {
-        comments = null;
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 1320130910)
-    public List<Reply> getReplies() {
-        if (replies == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            ReplyDao targetDao = daoSession.getReplyDao();
-            List<Reply> repliesNew = targetDao._queryUser_Replies(id);
-            synchronized (this) {
-                if (replies == null) {
-                    replies = repliesNew;
-                }
-            }
-        }
-        return replies;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 2101789245)
-    public synchronized void resetReplies() {
-        replies = null;
-    }
-
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2059241980)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getUserDao() : null;
     }
 
     public enum Sex {
@@ -285,15 +115,62 @@ public class User {
         }
     }
 
-    public static class SexConverter implements PropertyConverter<Sex, Integer> {
+    public static class SexTypeAdapter extends TypeAdapter<Sex> {
         @Override
-        public Sex convertToEntityProperty(Integer databaseValue) {
-            return Sex.getSex(databaseValue);
+        public void write(JsonWriter out, Sex value) throws IOException {
+            out.value(value == null ? Sex.SECRET.getId() : value.getId());
         }
 
         @Override
-        public Integer convertToDatabaseValue(Sex entityProperty) {
-            return entityProperty.id;
+        public Sex read(JsonReader in) throws IOException {
+            if (in.peek() == JsonToken.NULL) {
+                in.nextNull();
+                return Sex.SECRET;
+            }
+
+            return Sex.getSex(in.nextInt());
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeString(this.account);
+        dest.writeString(this.password);
+        dest.writeString(this.avatarUrl);
+        dest.writeString(this.name);
+        dest.writeInt(this.sex == null ? -1 : this.sex.ordinal());
+        dest.writeString(this.sign);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.id = in.readLong();
+        this.account = in.readString();
+        this.password = in.readString();
+        this.avatarUrl = in.readString();
+        this.name = in.readString();
+        int tmpSex = in.readInt();
+        this.sex = tmpSex == -1 ? null : Sex.values()[tmpSex];
+        this.sign = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

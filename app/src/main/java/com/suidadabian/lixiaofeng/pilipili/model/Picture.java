@@ -19,11 +19,11 @@ public interface Picture {
 
     void setDate(Date date);
 
-    String getTags();
-
-    void setTags(String tags);
-
     boolean isShare();
 
     void setShare(boolean share);
+
+    void setDeletehash(String deletehash);
+
+    String getDeletehash();
 }

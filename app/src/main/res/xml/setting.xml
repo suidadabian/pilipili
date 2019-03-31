@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:key="setting">
+    <Preference
+        android:key="setting_user_info"
+        android:title="用户信息">
+        <intent
+            android:targetClass="com.suidadabian.lixiaofeng.pilipili.setting.UserInfoActivity"
+            android:targetPackage="com.suidadabian.lixiaofeng.pilipili"/>
+    </Preference>
+    <Preference
+        android:key="setting_password"
+        android:title="密码修改">
+        <intent
+            android:targetClass="com.suidadabian.lixiaofeng.pilipili.setting.PasswordActivity"
+            android:targetPackage="com.suidadabian.lixiaofeng.pilipili"/>
+    </Preference>
+</PreferenceScreen>

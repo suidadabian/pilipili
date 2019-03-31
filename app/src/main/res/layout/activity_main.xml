@@ -1,68 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/main_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/main_app_bar_layout"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/toolbar_height_48dp"
+            android:background="@color/colorAccent"
+            android:titleTextColor="@color/white"
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
-            <Toolbar
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/main_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height_48dp"
-                android:background="@color/colorAccent"
-                android:navigationIcon="@drawable/icon_toolbar_back"
-                android:titleTextColor="@color/white"
-                app:layout_scrollFlags="scroll|enterAlways"/>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:layout_height="@dimen/main_tab_height_36dp"
+            android:background="@color/white"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/black"/>
+    </android.support.design.widget.AppBarLayout>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/main_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1dp"
-                android:background="@color/border_gray"/>
-
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/main_bottom_navigation_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/main_tab_height_56dp"
-                android:background="@color/gray"
-                app:itemIconTint="@color/selector_main_tab_icon_color"
-                app:itemTextColor="@color/selector_main_tab_text_color"
-                app:menu="@menu/menu_main_tab"/>
-        </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/main_navigation_view"
-        android:layout_width="wrap_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_view_pager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/layout_main_navigation_header"
-        app:menu="@menu/menu_main_navigation"/>
-</android.support.v4.widget.DrawerLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginVertical="@dimen/dimen_16dp"
+        android:src="@drawable/icon_add"
+        android:tint="@color/selector_main_add_icon_color"
+        app:fabSize="mini"
+        app:layout_behavior="com.suidadabian.lixiaofeng.pilipili.common.view.UpShowDownHideFABBehavior"/>
+</android.support.design.widget.CoordinatorLayout>

@@ -2,12 +2,35 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/photo_view"
+        android:id="@+id/picture_watch_photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"/>
 
+    <Toolbar
+        android:id="@+id/picture_watch_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_48dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/light_transparent_black"
+        android:navigationIcon="@drawable/icon_toolbar_back"
+        android:visibility="visible"/>
+
+    <ImageButton
+        android:id="@+id/picture_watch_download_ibtn"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginVertical="@dimen/dimen_16dp"
+        android:background="@color/light_transparent_black"
+        android:padding="@dimen/dimen_8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_download"
+        android:tint="@color/selector_picture_watch_download_icon_color"/>
 </RelativeLayout>

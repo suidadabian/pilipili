@@ -12,4 +12,10 @@
     <string name="registered_password_hint">密码</string>
     <string name="registered_confirm_password_hint">确认密码</string>
     <string name="registered_registered_btn_txt">注册</string>
+    <string name="comment_reply_num_text">%1$d条回复</string>
+    <string name="info_picture_intro_download_text">下载</string>
+    <string name="replies_toolbar_title">评论详情</string>
+    <string name="user_intro_hint">这个UP主很懒，什么都没留下</string>
+    <string name="info_picture_intro_hint">UP主没有写简介</string>
+    <string name="input_text_hint">写下你想说的</string>
 </resources>
